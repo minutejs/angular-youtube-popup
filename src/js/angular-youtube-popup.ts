@@ -22,12 +22,12 @@ module Minute {
                             </div>
                         </div>
                     </form>
-                </div>
+                </div> 
             `;
 
-            service.popup = (videoUrl, title = '', modal = false, playerVars = {autoplay: 1, controls: 0, modestbranding: 1, rel: 0, showInfo: 0}) => {
-                console.log("videoUrl, title: ", videoUrl, title);
-                $ui.popup(template, modal, null, {ctrl: this, data: {videoUrl: videoUrl, playerVars: playerVars, title: title}});
+            service.popup = (videoUrl, title = '', modal = false, playerVars = {}) => {
+                let defaultVars = {autoplay: 1, controls: 0, modestbranding: 1, rel: 0, showInfo: 0};
+                $ui.popup(template, modal, null, {ctrl: this, data: {videoUrl: videoUrl, playerVars: angular.extend({}, defaultVars, playerVars), title: title}});
             };
 
             service.init = () => {
@@ -40,6 +40,7 @@ module Minute {
 
     export class YoutubeLink implements ng.IDirective {
         restrict = 'A';
+        scope:any = {youtubeLink: '=?'};
 
         constructor(private $compile: ng.ICompileService, private $timeout: ng.ITimeoutService, private $youtube: any, private $ui: any) {
         }
@@ -55,7 +56,7 @@ module Minute {
                 let href = element.attr('href');
 
                 if (/youtube\.com/i.test(href)) {
-                    this.$youtube.popup(href, element.text());
+                    this.$youtube.popup(href, element.text(), false, $scope.youtubeLink || {});
                     event.stopImmediatePropagation();
                     return false;
                 }
@@ -66,4 +67,5 @@ module Minute {
     angular.module('AngularYouTubePopup', ['MinuteFramework', 'youtube-embed'])
         .directive('youtubeLink', YoutubeLink.factory())
         .provider("$youtube", AngularYouTubePopup);
+
 }

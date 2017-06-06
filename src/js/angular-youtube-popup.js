@@ -12,7 +12,7 @@ var Minute;
                     if (modal === void 0) { modal = false; }
                     if (playerVars === void 0) { playerVars = {}; }
                     var defaultVars = { hd: 1, autoplay: 1, controls: 0, modestbranding: 1, rel: 0, showInfo: 0 };
-                    $ui.popup(template, modal, null, { ctrl: _this, data: { videoUrl: videoUrl, playerVars: angular.extend({}, defaultVars, playerVars), title: title } });
+                    return $ui.popup(template, modal, null, { ctrl: _this, data: { videoUrl: videoUrl, playerVars: angular.extend({}, defaultVars, playerVars), title: title } });
                 };
                 service.init = function () {
                     return service;

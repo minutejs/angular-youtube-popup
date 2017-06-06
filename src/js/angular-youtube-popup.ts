@@ -27,7 +27,8 @@ module Minute {
 
             service.popup = (videoUrl, title = '', modal = false, playerVars = {}) => {
                 let defaultVars = {hd: 1, autoplay: 1, controls: 0, modestbranding: 1, rel: 0, showInfo: 0};
-                $ui.popup(template, modal, null, {ctrl: this, data: {videoUrl: videoUrl, playerVars: angular.extend({}, defaultVars, playerVars), title: title}});
+
+                return $ui.popup(template, modal, null, {ctrl: this, data: {videoUrl: videoUrl, playerVars: angular.extend({}, defaultVars, playerVars), title: title}});
             };
 
             service.init = () => {
